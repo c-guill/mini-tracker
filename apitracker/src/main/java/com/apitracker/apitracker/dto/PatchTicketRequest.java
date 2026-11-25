@@ -1,0 +1,29 @@
+package com.apitracker.apitracker.dto;
+
+import com.apitracker.apitracker.domain.TicketLabel;
+import com.apitracker.apitracker.domain.TicketPriority;
+import com.apitracker.apitracker.domain.TicketStatus;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+public record PatchTicketRequest(
+        @Size(max = 255, message = "Le titre ne peut pas dépasser 255 caractères")
+        String title,
+
+        @Size(max = 5000, message = "La description ne peut pas dépasser 5000 caractères")
+        String description,
+
+        TicketStatus status,
+
+        TicketPriority priority,
+
+        @Pattern(regexp = "^(|\\d{4}-\\d{2}-\\d{2})$", message = "La date d'échéance doit être au format YYYY-MM-DD")
+        String dueDate,
+
+        String assigneeId,
+
+        List<TicketLabel> labels
+) {
+}
